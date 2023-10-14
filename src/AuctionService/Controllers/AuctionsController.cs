@@ -2,7 +2,6 @@
 using AuctionService.DTOs;
 using AuctionService.Entities;
 using AutoMapper;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
