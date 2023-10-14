@@ -1,0 +1,24 @@
+version: '3.4'
+
+services:
+  auctionservice:
+    image: ${DOCKER_REGISTRY-}auctionservice
+    build:
+      context: .
+      dockerfile: src/AuctionService/Dockerfile
+    depends_on:
+      - postgres
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: Abc@12345
+      POSTGRES_USER: postgres
+      POSTGRES_DB: auction
+    ports:
+      - 5455:5432
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
+
