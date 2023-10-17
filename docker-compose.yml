@@ -1,14 +1,6 @@
 version: '3.4'
 
 services:
-  auctionservice:
-    image: ${DOCKER_REGISTRY-}auctionservice
-    build:
-      context: .
-      dockerfile: src/AuctionService/Dockerfile
-    depends_on:
-      - postgres
-
   postgres:
     image: postgres
     environment:
@@ -19,6 +11,34 @@ services:
       - 5455:5432
     volumes:
       - pgdata:/var/lib/postgresql/data
+
+  mongodb:
+    image: mongo
+    environment:
+          MONGO_INITDB_ROOT_USERNAME: root
+          MONGO_INITDB_ROOT_PASSWORD: Abc12345
+    ports:
+      - 27077:27017
+    volumes:
+      - mongodata:/var/lib/mongodb/data
+
+  auctionservice:
+    image: ${DOCKER_REGISTRY-}auctionservice
+    build:
+      context: .
+      dockerfile: src/AuctionService/Dockerfile
+    depends_on:
+      - postgres
+  searchservice:
+    image: ${DOCKER_REGISTRY-}searchservice
+    build:
+      context: .
+      dockerfile: src/SearchService/Dockerfile
+    depends_on:
+      - mongodb
+
 volumes:
   pgdata:
+  mongodata:
+
 
