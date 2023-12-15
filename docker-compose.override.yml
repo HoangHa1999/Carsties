@@ -1,15 +1,38 @@
 version: '3.4'
 
 services:
-  auctionservice:
+  auction-svc:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMQ__Host=rabbitmq
+      - ConnectionStrings__DefaultConnection=Server=postgres,5455;User Id=postgres;Password=Abc@12345;Database=auction
+      - IdentityServiceUrl=http://identity-svc
     ports:
       - "7001:80"
 
-  searchservice:
+  search-svc:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMQ__Host=rabbitmq
+      - ConnectionStrings__MongoDbConnection=mongodb://root:Abc12345@mongodb
+      - AuctionServiceUrl=http://auction-svc
     ports:
       - "7002:80"
+
+  identity-svc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+      - ConnectionStrings__DefaultConnection=Server=postgres,5455;User Id=postgres;Password=Abc@12345;Database=identity
+    ports:
+      - "5000:80"
+
+  gateway-svc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=http://+:80
+    ports:
+      - "6001:80"
 

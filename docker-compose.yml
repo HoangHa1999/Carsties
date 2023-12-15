@@ -18,7 +18,7 @@ services:
           MONGO_INITDB_ROOT_USERNAME: root
           MONGO_INITDB_ROOT_PASSWORD: Abc12345
     ports:
-      - 27077:27017
+      - 27017:27017
     volumes:
       - mongodata:/var/lib/mongodb/data
 
@@ -28,23 +28,41 @@ services:
       - 5672:5672
       - 15672:15672
 
-  auctionservice:
-    image: ${DOCKER_REGISTRY-}auctionservice
+  auction-svc:
+    image: hoangha1999/auction-svc:latest
     build:
       context: .
       dockerfile: src/AuctionService/Dockerfile
     depends_on:
       - postgres
-  searchservice:
-    image: ${DOCKER_REGISTRY-}searchservice
+      - rabbitmq
+  search-svc:
+    image: hoangha1999/search-svc:latest
     build:
       context: .
       dockerfile: src/SearchService/Dockerfile
     depends_on:
       - mongodb
+      - rabbitmq
+
+  identity-svc:
+    image: hoangha1999/identity-svc:latest
+    build:
+      context: .
+      dockerfile: src/IdentityService/Dockerfile
+    depends_on:
+      - postgres
+
+  gateway-svc:
+    image: hoangha1999/gateway-svc:latest
+    build:
+      context: .
+      dockerfile: src/GatewayService/Dockerfile
 
 volumes:
   pgdata:
   mongodata:
+
+
 
 
