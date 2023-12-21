@@ -50,8 +50,8 @@ export default function Filters() {
     const setParams = useParamsStore((state) => state.setParams);
 
     return (
-        <div className="flex justify-between items-center mb-4">
-            <div>
+        <div className="flex lg:justify-between lg:items-center lg:flex-row vsm:flex-col mb-4">
+            <div className="lg:mb-0 vsm:mb-4">
                 <span className="uppercase text-gray-500 mr-2">Filter by</span>
                 <ButtonGroup>
                     {filterByButtons.map(({ label, icon: Icon, value }) => (
@@ -67,7 +67,7 @@ export default function Filters() {
                     ))}
                 </ButtonGroup>
             </div>
-            <div>
+            <div className="lg:mb-0 vsm:mb-4">
                 <span className="uppercase text-gray-500 mr-2">Order by</span>
                 <ButtonGroup>
                     {orderByButtons.map(({ label, icon: Icon, value }) => (
@@ -83,7 +83,7 @@ export default function Filters() {
                     ))}
                 </ButtonGroup>
             </div>
-            <div>
+            <div className="lg:mb-0 vsm:mb-4">
                 <span className="uppercase text-gray-500 mr-2">Page size</span>
                 <ButtonGroup>
                     {pageSizeButtons.map((size, i) => (
