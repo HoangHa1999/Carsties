@@ -20,6 +20,8 @@ export default function Listing() {
             searchTerm: state.searchTerm,
             orderBy: state.orderBy,
             filterBy: state.filterBy,
+            seller: state.seller,
+            winner: state.winner,
         }),
         shallow
     );
@@ -40,7 +42,7 @@ export default function Listing() {
     if (!data) return <h3>Loading...</h3>;
 
     return (
-        <>
+        <div>
             <Filters />
             {data.totalCount === 0 ? (
                 <EmptyFilter showReset />
@@ -60,6 +62,6 @@ export default function Listing() {
                     </div>
                 </>
             )}
-        </>
+        </div>
     );
 }
