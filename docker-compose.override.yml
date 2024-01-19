@@ -5,11 +5,17 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
       - ASPNETCORE_URLS=http://+:80
+      - ASPNETCORE_URLS=http://+:7777
       - RabbitMQ__Host=rabbitmq
       - ConnectionStrings__DefaultConnection=Server=postgres,5455;User Id=postgres;Password=Abc@12345;Database=auction
       - IdentityServiceUrl=http://identity-svc
+      - Kestrel__Endpoints__Grpc__Protocols=Http2
+      - Kestrel__Endpoints__Grpc__Url=http://+:7777
+      - Kestrel__Endpoints__WebApi__Protocols=Http1
+      - Kestrel__Endpoints__WebApi__Url=Http://+:80
     ports:
       - "7001:80"
+      - "7777:7777"
 
   search-svc:
     environment:
@@ -20,6 +26,17 @@ services:
       - AuctionServiceUrl=http://auction-svc
     ports:
       - "7002:80"
+
+  bid-svc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMQ__Host=rabbitmq
+      - ConnectionStrings__BidDbConnection=mongodb://root:Abc12345@mongodb
+      - IdentityServiceUrl=http://identity-svc
+      - GrpcAuction=http://auction-svc:7777
+    ports:
+      - "7003:80"
 
   identity-svc:
     environment:

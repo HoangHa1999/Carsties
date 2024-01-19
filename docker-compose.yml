@@ -10,7 +10,7 @@ services:
     ports:
       - 5455:5432
     volumes:
-      - pgdata:/var/lib/postgresql/data
+      - /var/lib/postgresql/data
 
   mongodb:
     image: mongo
@@ -20,7 +20,7 @@ services:
     ports:
       - 27017:27017
     volumes:
-      - mongodata:/var/lib/mongodb/data
+      - /var/lib/mongodb/data
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
@@ -36,11 +36,21 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+
   search-svc:
     image: hoangha1999/search-svc:latest
     build:
       context: .
       dockerfile: src/SearchService/Dockerfile
+    depends_on:
+      - mongodb
+      - rabbitmq
+
+  bid-svc:
+    image: hoangha1999/bid-svc:latest
+    build:
+      context: .
+      dockerfile: src/BiddingService/Dockerfile
     depends_on:
       - mongodb
       - rabbitmq
@@ -62,6 +72,7 @@ services:
 volumes:
   pgdata:
   mongodata:
+
 
 
 
