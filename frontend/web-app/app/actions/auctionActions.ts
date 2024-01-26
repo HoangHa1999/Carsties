@@ -1,12 +1,12 @@
 "use server";
 
-import { Auction, PagedResult } from "@/types";
-import { fetchWrapper } from "@/lib/fetchWrapper";
+import { Auction, Bid, PagedResult } from "@/types";
 import { FieldValues } from "react-hook-form";
 import { revalidatePath } from "next/cache";
+import { fetchWrapper } from "../lib/fetchWrapper";
 
 export async function getData(query: string): Promise<PagedResult<Auction>> {
-    return fetchWrapper.get(`search${query}`);
+    return await fetchWrapper.get(`search${query}`);
 }
 
 export async function updateAuctionTest() {
@@ -20,19 +20,27 @@ export async function updateAuctionTest() {
 }
 
 export async function createAuction(data: FieldValues) {
-    return fetchWrapper.post("auctions", data);
+    return await fetchWrapper.post("auctions", data);
 }
 
 export async function updateAuction(id: string, data: FieldValues) {
-    const res = fetchWrapper.put(`auctions/${id}`, data);
+    const res = await fetchWrapper.put(`auctions/${id}`, data);
     revalidatePath(`/auctions/${id}`);
     return res;
 }
 
 export async function deleteAuction(id: string) {
-    return fetchWrapper.delete(`auctions/${id}`);
+    return await fetchWrapper.delete(`auctions/${id}`);
 }
 
 export async function getAuction(id: string): Promise<Auction> {
-    return fetchWrapper.get(`auctions/${id}`);
+    return await fetchWrapper.get(`auctions/${id}`);
+}
+
+export async function getBidsForAuction(id: string): Promise<Bid[]> {
+    return await fetchWrapper.get(`bids/${id}`);
+}
+
+export async function placeBidForAuction(auctionId: string, amount: number) {
+    return await fetchWrapper.post(`bids?auctionId=${auctionId}&amount=${amount}`, {});
 }

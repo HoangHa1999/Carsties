@@ -38,6 +38,14 @@ services:
     ports:
       - "7003:80"
 
+  notify-svc:
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://+:80
+      - RabbitMQ__Host=rabbitmq
+    ports:
+      - "7004:80"
+
   identity-svc:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker

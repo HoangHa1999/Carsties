@@ -1,7 +1,7 @@
 import Heading from '@/app/components/Heading'
 import React from 'react'
 import AuctionForm from '../../AuctionForm'
-import { getAuction } from '@/app/actions/actionAuctions';
+import { getAuction } from '@/app/actions/auctionActions';
 
 export default async function Update({params}: {params: {id: string}}) {
   const auction = await getAuction(params.id);

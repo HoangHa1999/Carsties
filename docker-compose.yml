@@ -68,6 +68,14 @@ services:
     build:
       context: .
       dockerfile: src/GatewayService/Dockerfile
+    depends_on:
+      - rabbitmq
+
+  notify-svc:
+    image: hoangha1999/notify-svc:latest
+    build:
+      context: .
+      dockerfile: src/NotificationService/Dockerfile
 
 volumes:
   pgdata:

@@ -33,7 +33,7 @@ export default function Search() {
                 value={searchValue}
                 onChange={onChange}
                 placeholder="Search for cars by make, model or color"
-                className="bg-transparent outline-none px-4 py-1 w-full border-none focus:ring-0"
+                className="input-custom text-sm"
             />
             <button onClick={search}>
                 <FaSearch

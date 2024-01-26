@@ -2,7 +2,7 @@
 
 import { Button } from "flowbite-react";
 import React from "react";
-import { updateAuctionTest } from "../actions/actionAuctions";
+import { updateAuctionTest } from "../actions/auctionActions";
 
 export default function AuthTest() {
     const [loading, setLoading] = React.useState(false);
