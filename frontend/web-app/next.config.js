@@ -1,8 +1,9 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: ['cdn.pixabay.com'],
-    },   
-}
+        domains: ["cdn.pixabay.com"],
+    },
+    output: "standalone",
+};
 
-module.exports = nextConfig
+module.exports = nextConfig;

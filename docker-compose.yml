@@ -77,6 +77,14 @@ services:
       context: .
       dockerfile: src/NotificationService/Dockerfile
 
+  web-app:
+    image: hoangha1999/web-app:latest
+    build:
+      context: .
+      dockerfile: frontend/web-app/Dockerfile
+    volumes:
+      - /var/lib/web/data
+   
 volumes:
   pgdata:
   mongodata:
