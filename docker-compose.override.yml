@@ -63,15 +63,14 @@ services:
 
   web-app:
     extra_hosts:
-      - id.carsties.com:172.22.0.10
+      - id.carsties.com:172.22.0.199
     environment:
       - NEXTAUTH_SECRET=somethingreallyreallysecret
-      - NEXTAUTH_URL=http://app.carsties.com
+      - NEXTAUTH_URL=http://localhost:3000
       - NEXTAUTH_URL_INTERNAL=http://web-app:3000
       - API_URL=http://gateway-svc/
       - ID_URL=http://id.carsties.com
-      - NEXT_PUBLIC_NOTIFY_URL=http://gateway-svc/notifications
-     
+      - NEXT_PUBLIC_NOTIFY_URL=http://gateway-svc/notifications    
     ports:
       - "3000:3000"
 

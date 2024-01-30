@@ -4,6 +4,11 @@ const nextConfig = {
         domains: ["cdn.pixabay.com"],
     },
     output: "standalone",
+    logging: {
+        fetches: {
+            fullUrl: true,
+        },
+    },
 };
 
 module.exports = nextConfig;

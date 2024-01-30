@@ -1,5 +1,11 @@
 version: '3.4'
 
+networks:
+  custom:
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
+
 services:
   postgres:
     image: postgres
@@ -11,6 +17,8 @@ services:
       - 5455:5432
     volumes:
       - /var/lib/postgresql/data
+    networks:
+      custom:
 
   mongodb:
     image: mongo
@@ -21,12 +29,16 @@ services:
       - 27017:27017
     volumes:
       - /var/lib/mongodb/data
+    networks:
+      custom:
 
   rabbitmq:
     image: rabbitmq:3-management-alpine
     ports:
       - 5672:5672
       - 15672:15672
+    networks:
+      custom:
 
   auction-svc:
     image: hoangha1999/auction-svc:latest
@@ -36,6 +48,8 @@ services:
     depends_on:
       - postgres
       - rabbitmq
+    networks:
+      custom:
 
   search-svc:
     image: hoangha1999/search-svc:latest
@@ -45,6 +59,8 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
+    networks:
+      custom:
 
   bid-svc:
     image: hoangha1999/bid-svc:latest
@@ -54,6 +70,8 @@ services:
     depends_on:
       - mongodb
       - rabbitmq
+    networks:
+      custom:
 
   identity-svc:
     image: hoangha1999/identity-svc:latest
@@ -62,6 +80,9 @@ services:
       dockerfile: src/IdentityService/Dockerfile
     depends_on:
       - postgres
+    networks:
+      custom:
+        ipv4_address: 172.22.0.199
 
   gateway-svc:
     image: hoangha1999/gateway-svc:latest
@@ -70,12 +91,16 @@ services:
       dockerfile: src/GatewayService/Dockerfile
     depends_on:
       - rabbitmq
+    networks:
+      custom:
 
   notify-svc:
     image: hoangha1999/notify-svc:latest
     build:
       context: .
       dockerfile: src/NotificationService/Dockerfile
+    networks:
+      custom:
 
   web-app:
     image: hoangha1999/web-app:latest
@@ -84,6 +109,8 @@ services:
       dockerfile: frontend/web-app/Dockerfile
     volumes:
       - /var/lib/web/data
+    networks:
+      custom:
    
 volumes:
   pgdata:
