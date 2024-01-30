@@ -1,5 +1,5 @@
 import { Bid } from "@/types";
-import { create } from "zustand";
+import { createWithEqualityFn } from 'zustand/traditional'
 
 type State = {
     bids: Bid[];
@@ -17,7 +17,7 @@ const initialState: State = {
     open: true,
 };
 
-export const useBidStore = create<State & Actions>((set) => ({
+export const useBidStore = createWithEqualityFn<State & Actions>((set) => ({
     ...initialState,
     setBids: (bids: Bid[]) => set(() => ({ bids })),
     addBid: (bid: Bid) =>

@@ -111,6 +111,17 @@ services:
       - /var/lib/web/data
     networks:
       custom:
+    
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      custom:
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./devcerts:/etc/nginx/certs
    
 volumes:
   pgdata:

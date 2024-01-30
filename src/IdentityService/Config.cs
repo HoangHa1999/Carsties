@@ -36,7 +36,7 @@ public static class Config
                 ClientSecrets = {new Secret(configuration["ClientSecret"].Sha256())},
                 AllowedGrantTypes = GrantTypes.CodeAndClientCredentials,
                 RequirePkce = false,
-                RedirectUris = { configuration["clientApp"] + "/api/auth/callback/id-server"},
+                RedirectUris = { configuration["ClientApp"] + "/api/auth/callback/id-server"},
                 AllowOfflineAccess = true,
                 AllowedScopes = {"openid", "profile", "auctionApp"},
                 AccessTokenLifetime = 3600*24*30,

@@ -1,14 +1,18 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {
-    images: {
-        domains: ["cdn.pixabay.com"],
-    },
+
+const hostnames = [
+  'cdn.pixabay.com',
+  ];
+
+const nextConfig = {  
+      images: {
+        remotePatterns: hostnames.map(hostname => ({
+            protocol: 'https',
+            hostname,
+            pathname: '**',
+        }))
+      },
     output: "standalone",
-    logging: {
-        fetches: {
-            fullUrl: true,
-        },
-    },
 };
 
 module.exports = nextConfig;
