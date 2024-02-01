@@ -78,35 +78,6 @@ public class SeedData
             {
                 Log.Debug("bob already exists");
             }
-
-            var tom = userMgr.FindByNameAsync("tom").Result;
-            if (tom == null)
-            {
-                tom = new ApplicationUser
-                {
-                    UserName = "tom",
-                    Email = "TomSmith@email.com",
-                    EmailConfirmed = true
-                };
-                var result = userMgr.CreateAsync(tom, "Pass123$").Result;
-                if (!result.Succeeded)
-                {
-                    throw new Exception(result.Errors.First().Description);
-                }
-
-                result = userMgr.AddClaimsAsync(tom, new Claim[]{
-                            new Claim(JwtClaimTypes.Name, "Tom Smith"),
-                        }).Result;
-                if (!result.Succeeded)
-                {
-                    throw new Exception(result.Errors.First().Description);
-                }
-                Log.Debug("Tom created");
-            }
-            else
-            {
-                Log.Debug("Tom already exists");
-            }
         }
     }
 }
