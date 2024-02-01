@@ -1,4 +1,4 @@
-name: deloy-identity
+name: deploy-identity
 
 on:
   workflow_dispatch:    
